@@ -4,6 +4,7 @@ package interpreter.model.adt;
 import interpreter.exceptions.ADTException;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MyStackTest {
@@ -18,4 +19,12 @@ class MyStackTest {
         assertEquals(20, stack.pop());
         assertEquals(10, stack.pop());
     }
+
+    @Test
+    void popFromEmptyStackThrows() {
+        IStack<Integer> stack = new MyStack<>();
+
+        assertThrows(ADTException.class, () -> stack.pop());
+    }
 }
+
