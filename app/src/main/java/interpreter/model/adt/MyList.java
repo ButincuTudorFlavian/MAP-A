@@ -5,7 +5,8 @@ import interpreter.exceptions.ADTException;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.ArrayList;
+import java.util.List;
 public class MyList<T> implements IList<T> {
 
     private final List<T> list;
@@ -40,4 +41,10 @@ public class MyList<T> implements IList<T> {
     public String toString() {
         return list.toString();
     }
+
+    @Override
+    public List<T> toList() {
+        return new ArrayList<>(list);
+    }
+
 }

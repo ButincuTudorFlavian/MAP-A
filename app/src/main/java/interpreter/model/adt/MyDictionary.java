@@ -5,7 +5,7 @@ import interpreter.exceptions.ADTException;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.Map;
 public class MyDictionary<K, V> implements IDictionary<K, V> {
 
     private final Map<K, V> dictionary;
@@ -50,4 +50,22 @@ public class MyDictionary<K, V> implements IDictionary<K, V> {
     public String toString() {
         return dictionary.toString();
     }
+
+
+    @Override
+    public void remove(K key) throws ADTException {
+        if (!dictionary.containsKey(key)) {
+            throw new ADTException(
+                    "Key is not defined: " + key
+            );
+        }
+
+        dictionary.remove(key);
+    }
+
+    @Override
+    public Map<K, V> toMap() {
+        return Map.copyOf(dictionary);
+    }
+
 }
