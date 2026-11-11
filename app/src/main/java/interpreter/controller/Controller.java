@@ -33,23 +33,24 @@ public class Controller {
         return currentStatement.execute(state);
     }
 
+
     public void allStep() throws MyException {
 
         PrgState program = repo.getCrtPrg();
-
+        repo.logPrgStateExec();
         if (displayFlag) {
             display(program);
         }
-
         while (!program.getExeStack().isEmpty()) {
-
             program = oneStep(program);
+            repo.logPrgStateExec();
 
             if (displayFlag) {
                 display(program);
             }
         }
     }
+
 
     private void display(PrgState state) {
 
