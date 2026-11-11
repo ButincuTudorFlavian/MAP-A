@@ -86,4 +86,16 @@ public final class Examples {
                             )
                     )
             );
+
+    // Ex4: bool a; a = 2; print(a)
+    public static final IStmt EX4 =
+            new CompStmt(
+                    new VarDeclStmt("a", new BoolType()),
+                    new CompStmt(
+                            new AssignStmt("a",
+                                    new ValueExp(new IntValue(2))),
+                            new PrintStmt(new VarExp("a"))
+                    )
+            );
+
 }
