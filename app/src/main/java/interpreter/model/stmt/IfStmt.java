@@ -1,3 +1,4 @@
+
 package interpreter.model.stmt;
 
 import interpreter.exceptions.MyException;
@@ -15,7 +16,10 @@ public record IfStmt(
 
     @Override
     public PrgState execute(PrgState state) throws MyException {
-        IValue conditionValue = exp.eval(state.getSymTable());
+        IValue conditionValue = exp.eval(
+                state.getSymTable(),
+                state.getHeap()
+        );
 
         if (!(conditionValue instanceof BoolValue condition)) {
             throw new StatementException(

@@ -34,7 +34,7 @@ public record ReadFileStmt(
             );
         }
 
-        if (!(exp.eval(symTable)
+        if (!(exp.eval(symTable, state.getHeap())
                 instanceof StringValue fileName)) {
             throw new StatementException(
                     "readFile: file name is not a string"

@@ -1,6 +1,8 @@
 
 package interpreter.model.exp;
 
+import interpreter.model.adt.MyHeap;
+
 import interpreter.exceptions.ExpressionException;
 import interpreter.exceptions.MyException;
 
@@ -34,7 +36,7 @@ class VarExpTest {
 
         assertEquals(
                 new IntValue(10),
-                expression.eval(symTable)
+                expression.eval(symTable, new MyHeap())
         );
     }
 
@@ -48,7 +50,7 @@ class VarExpTest {
 
         assertEquals(
                 new BoolValue(true),
-                expression.eval(symTable)
+                expression.eval(symTable, new MyHeap())
         );
     }
 
@@ -59,7 +61,7 @@ class VarExpTest {
 
         assertThrows(
                 ExpressionException.class,
-                () -> expression.eval(symTable)
+                () -> expression.eval(symTable, new MyHeap())
         );
     }
 
@@ -73,14 +75,14 @@ class VarExpTest {
 
         assertEquals(
                 new IntValue(5),
-                expression.eval(symTable)
+                expression.eval(symTable, new MyHeap())
         );
 
         symTable.update("a", new IntValue(20));
 
         assertEquals(
                 new IntValue(20),
-                expression.eval(symTable)
+                expression.eval(symTable, new MyHeap())
         );
     }
 }

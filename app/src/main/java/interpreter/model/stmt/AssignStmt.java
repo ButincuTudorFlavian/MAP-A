@@ -1,3 +1,4 @@
+
 package interpreter.model.stmt;
 
 import interpreter.exceptions.MyException;
@@ -19,7 +20,7 @@ public record AssignStmt(String id, IExp exp) implements IStmt {
             );
         }
 
-        IValue value = exp.eval(symTable);
+        IValue value = exp.eval(symTable, state.getHeap());
         IValue oldValue = symTable.lookup(id);
 
         if (!value.getType().equals(oldValue.getType())) {

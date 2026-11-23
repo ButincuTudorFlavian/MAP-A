@@ -1,6 +1,8 @@
 
 package interpreter.model.exp;
 
+import interpreter.model.adt.MyHeap;
+
 import interpreter.model.adt.IDictionary;
 import interpreter.model.adt.MyDictionary;
 import interpreter.model.value.IValue;
@@ -23,7 +25,7 @@ class ValueExpTest {
 
         assertEquals(
                 new IntValue(10),
-                expression.eval(symTable)
+                expression.eval(symTable, new MyHeap())
         );
     }
 
@@ -36,7 +38,7 @@ class ValueExpTest {
 
         assertEquals(
                 new BoolValue(true),
-                expression.eval(symTable)
+                expression.eval(symTable, new MyHeap())
         );
     }
 

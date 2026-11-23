@@ -1,6 +1,8 @@
 
 package interpreter.model.exp;
 
+import interpreter.model.adt.MyHeap;
+
 import interpreter.exceptions.ExpressionException;
 import interpreter.exceptions.MyException;
 import interpreter.model.adt.IDictionary;
@@ -33,7 +35,7 @@ class ArithExpTest {
 
         assertEquals(
                 new IntValue(15),
-                expression.eval(symTable)
+                expression.eval(symTable, new MyHeap())
         );
     }
 
@@ -48,7 +50,7 @@ class ArithExpTest {
 
         assertEquals(
                 new IntValue(6),
-                expression.eval(symTable)
+                expression.eval(symTable, new MyHeap())
         );
     }
 
@@ -63,7 +65,7 @@ class ArithExpTest {
 
         assertEquals(
                 new IntValue(30),
-                expression.eval(symTable)
+                expression.eval(symTable, new MyHeap())
         );
     }
 
@@ -78,7 +80,7 @@ class ArithExpTest {
 
         assertEquals(
                 new IntValue(5),
-                expression.eval(symTable)
+                expression.eval(symTable, new MyHeap())
         );
     }
 
@@ -93,7 +95,7 @@ class ArithExpTest {
 
         ExpressionException exception = assertThrows(
                 ExpressionException.class,
-                () -> expression.eval(symTable)
+                () -> expression.eval(symTable, new MyHeap())
         );
 
         assertEquals(
@@ -113,7 +115,7 @@ class ArithExpTest {
 
         assertThrows(
                 ExpressionException.class,
-                () -> expression.eval(symTable)
+                () -> expression.eval(symTable, new MyHeap())
         );
     }
 
@@ -128,7 +130,7 @@ class ArithExpTest {
 
         assertThrows(
                 ExpressionException.class,
-                () -> expression.eval(symTable)
+                () -> expression.eval(symTable, new MyHeap())
         );
     }
 
@@ -149,7 +151,7 @@ class ArithExpTest {
 
         assertEquals(
                 new IntValue(17),
-                addition.eval(symTable)
+                addition.eval(symTable, new MyHeap())
         );
     }
 
@@ -164,7 +166,7 @@ class ArithExpTest {
 
         assertEquals(
                 new IntValue(-5),
-                expression.eval(symTable)
+                expression.eval(symTable, new MyHeap())
         );
     }
 }

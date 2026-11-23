@@ -1,6 +1,8 @@
 
 package interpreter.model.exp;
 
+import interpreter.model.adt.MyHeap;
+
 import interpreter.exceptions.ExpressionException;
 import interpreter.exceptions.MyException;
 import interpreter.model.adt.MyDictionary;
@@ -28,7 +30,7 @@ class RelationalExpTest {
 
         assertEquals(
                 new BoolValue(expected),
-                exp.eval(new MyDictionary<>())
+                exp.eval(new MyDictionary<>(), new MyHeap())
         );
     }
 
@@ -78,7 +80,7 @@ class RelationalExpTest {
 
         assertThrows(
                 ExpressionException.class,
-                () -> exp.eval(new MyDictionary<>())
+                () -> exp.eval(new MyDictionary<>(), new MyHeap())
         );
     }
 
@@ -92,7 +94,7 @@ class RelationalExpTest {
 
         assertThrows(
                 ExpressionException.class,
-                () -> exp.eval(new MyDictionary<>())
+                () -> exp.eval(new MyDictionary<>(), new MyHeap())
         );
     }
 }

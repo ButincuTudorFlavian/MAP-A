@@ -1,6 +1,8 @@
 
 package interpreter.model.exp;
 
+import interpreter.model.adt.MyHeap;
+
 import interpreter.exceptions.ExpressionException;
 import interpreter.exceptions.MyException;
 import interpreter.model.adt.IDictionary;
@@ -33,7 +35,7 @@ class LogicExpTest {
 
         assertEquals(
                 new BoolValue(true),
-                expression.eval(symTable)
+                expression.eval(symTable, new MyHeap())
         );
     }
 
@@ -48,7 +50,7 @@ class LogicExpTest {
 
         assertEquals(
                 new BoolValue(false),
-                expression.eval(symTable)
+                expression.eval(symTable, new MyHeap())
         );
     }
 
@@ -63,7 +65,7 @@ class LogicExpTest {
 
         assertEquals(
                 new BoolValue(true),
-                expression.eval(symTable)
+                expression.eval(symTable, new MyHeap())
         );
     }
 
@@ -78,7 +80,7 @@ class LogicExpTest {
 
         assertEquals(
                 new BoolValue(false),
-                expression.eval(symTable)
+                expression.eval(symTable, new MyHeap())
         );
     }
 
@@ -93,7 +95,7 @@ class LogicExpTest {
 
         assertThrows(
                 ExpressionException.class,
-                () -> expression.eval(symTable)
+                () -> expression.eval(symTable, new MyHeap())
         );
     }
 
@@ -108,7 +110,7 @@ class LogicExpTest {
 
         assertThrows(
                 ExpressionException.class,
-                () -> expression.eval(symTable)
+                () -> expression.eval(symTable, new MyHeap())
         );
     }
 
@@ -129,7 +131,7 @@ class LogicExpTest {
 
         assertEquals(
                 new BoolValue(true),
-                outerExpression.eval(symTable)
+                outerExpression.eval(symTable, new MyHeap())
         );
     }
 
@@ -146,7 +148,7 @@ class LogicExpTest {
 
         assertEquals(
                 new BoolValue(false),
-                expression.eval(symTable)
+                expression.eval(symTable, new MyHeap())
         );
     }
 
