@@ -47,12 +47,12 @@ class RunExampleCommandTest {
 
         String firstLog = Files.readString(logFile);
 
-        // Încercăm să executăm încă o dată.
+
         command.execute();
 
         String secondLog = Files.readString(logFile);
 
-        // Nu trebuie să se mai execute sau să scrie în log.
+
         assertEquals(firstLog, secondLog);
         assertEquals(1, state.getOut().size());
     }

@@ -61,4 +61,5 @@ class ExamplesTest {
         assertEquals(1, state.getOut().size());
         assertEquals(new IntValue(2), state.getOut().get(0));
     }
+
 }

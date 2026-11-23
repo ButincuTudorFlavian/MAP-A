@@ -26,8 +26,7 @@ public record CloseRFileStmt(IExp exp) implements IStmt {
 
         if (!fileTable.isDefined(fileName)) {
             throw new StatementException(
-                    "closeRFile: file " + fileName
-                            + " is not open"
+                    "closeRFile: file " + fileName + " is not open"
             );
         }
 
@@ -37,8 +36,7 @@ public record CloseRFileStmt(IExp exp) implements IStmt {
             reader.close();
         } catch (IOException e) {
             throw new StatementException(
-                    "closeRFile: cannot close " + fileName
-                            + ": " + e.getMessage()
+                    "closeRFile: cannot close " + fileName + ": " + e.getMessage()
             );
         }
 

@@ -12,7 +12,6 @@ public record CompStmt(
     public PrgState execute(PrgState state) {
 
         state.getExeStack().push(second);
-
         state.getExeStack().push(first);
 
         return state;

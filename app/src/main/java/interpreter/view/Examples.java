@@ -98,4 +98,108 @@ public final class Examples {
                     )
             );
 
+
+    // Construiește o secvență de instrucțiuni
+    // folosind CompStmt.
+    private static IStmt sequence(IStmt... statements) {
+        if (statements.length == 0) {
+            throw new IllegalArgumentException(
+                    "The program must contain a statement"
+            );
+        }
+
+        IStmt result = statements[statements.length - 1];
+
+        for (int i = statements.length - 2; i >= 0; i--) {
+            result = new CompStmt(statements[i], result);
+        }
+
+        return result;
+    }
+
+    // EX5: citește două numere dintr-un fișier.
+    public static IStmt fileExample(String fileName) {
+        return sequence(
+                new VarDeclStmt("varf", new StringType()),
+
+                new AssignStmt(
+                        "varf",
+                        new ValueExp(new StringValue(fileName))
+                ),
+
+                new OpenRFileStmt(new VarExp("varf")),
+
+                new VarDeclStmt("varc", new IntType()),
+
+                new ReadFileStmt(new VarExp("varf"), "varc"),
+
+                new PrintStmt(new VarExp("varc")),
+
+                new ReadFileStmt(new VarExp("varf"), "varc"),
+
+                new PrintStmt(new VarExp("varc")),
+
+                new CloseRFileStmt(new VarExp("varf"))
+        );
+    }
+
+    public static final IStmt EX5 = fileExample("test.in");
+
+    // EX6: int a; int b; a = 5; b = 7;
+    // if a < b then print(a) else print(b)
+    public static final IStmt EX6 = sequence(
+            new VarDeclStmt("a", new IntType()),
+
+            new VarDeclStmt("b", new IntType()),
+
+            new AssignStmt(
+                    "a",
+                    new ValueExp(new IntValue(5))
+            ),
+
+            new AssignStmt(
+                    "b",
+                    new ValueExp(new IntValue(7))
+            ),
+
+            new IfStmt(
+                    new RelationalExp(
+                            RelOp.LT,
+                            new VarExp("a"),
+                            new VarExp("b")
+                    ),
+                    new PrintStmt(new VarExp("a")),
+                    new PrintStmt(new VarExp("b"))
+            )
+    );
+
+
+    //Ex7: int a, int b, bool c; a=1;b=2; c=(a!=b); print(c)
+    public static final IStmt EX7 = sequence(
+            new VarDeclStmt("a", new IntType()),
+            new VarDeclStmt("b", new IntType()),
+            new VarDeclStmt("c", new BoolType()),
+
+            new AssignStmt(
+                    "a",
+                    new ValueExp(new IntValue(1))
+            ),
+
+            new AssignStmt(
+                    "b",
+                    new ValueExp(new IntValue(2))
+            ),
+
+            new AssignStmt(
+                    "c",
+                    new RelationalExp(
+                            RelOp.NE,
+                            new VarExp("a"),
+                            new VarExp("b")
+                    )
+            ),
+
+            new PrintStmt(new VarExp("c"))
+    );
+
 }

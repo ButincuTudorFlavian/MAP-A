@@ -1,18 +1,13 @@
 
 package interpreter.model;
 
-import interpreter.model.adt.IStack;
-import interpreter.model.adt.IDictionary;
-import interpreter.model.adt.IList;
+import interpreter.model.adt.*;
 import interpreter.model.stmt.IStmt;
 import interpreter.model.value.IValue;
-import interpreter.model.adt.MyStack;
-import interpreter.model.adt.MyDictionary;
-import interpreter.model.adt.MyList;
 import interpreter.model.value.StringValue;
 
 import java.io.BufferedReader;
-
+import java.util.TreeMap;
 
 public class PrgState {
 
@@ -20,38 +15,57 @@ public class PrgState {
     private IDictionary<String, IValue> symTable;
     private IList<IValue> out;
     private IDictionary<StringValue, BufferedReader> fileTable;
-
+    private IHeap heap;
     private final IStmt originalProgram;
-
 
     public PrgState(
             IStack<IStmt> exeStack,
             IDictionary<String, IValue> symTable,
             IList<IValue> out,
             IDictionary<StringValue, BufferedReader> fileTable,
-            IStmt program
+            IHeap heap,
+            IStmt originalProgram
     ) {
         this.exeStack = exeStack;
         this.symTable = symTable;
         this.out = out;
         this.fileTable = fileTable;
-        this.originalProgram = program;
+        this.heap = heap;
+        this.originalProgram = originalProgram;
 
-        exeStack.push(program);
+        this.exeStack.push(originalProgram);
     }
 
     public PrgState(
             IStack<IStmt> exeStack,
             IDictionary<String, IValue> symTable,
             IList<IValue> out,
-            IStmt program
+            IDictionary<StringValue, BufferedReader> fileTable,
+            IStmt originalProgram
+    ) {
+        this(
+                exeStack,
+                symTable,
+                out,
+                fileTable,
+                new MyHeap(),
+                originalProgram
+        );
+    }
+
+    public PrgState(
+            IStack<IStmt> exeStack,
+            IDictionary<String, IValue> symTable,
+            IList<IValue> out,
+            IStmt originalProgram
     ) {
         this(
                 exeStack,
                 symTable,
                 out,
                 new MyDictionary<>(),
-                program
+                new MyHeap(),
+                originalProgram
         );
     }
 
@@ -61,10 +75,10 @@ public class PrgState {
                 new MyDictionary<>(),
                 new MyList<>(),
                 new MyDictionary<>(),
+                new MyHeap(),
                 program
         );
     }
-
 
     public IStack<IStmt> getExeStack() {
         return exeStack;
@@ -78,6 +92,14 @@ public class PrgState {
         return out;
     }
 
+    public IDictionary<StringValue, BufferedReader> getFileTable() {
+        return fileTable;
+    }
+
+    public IHeap getHeap() {
+        return heap;
+    }
+
     public IStmt getOriginalProgram() {
         return originalProgram;
     }
@@ -86,18 +108,12 @@ public class PrgState {
         this.exeStack = exeStack;
     }
 
-    public void setSymTable(
-            IDictionary<String, IValue> symTable
-    ) {
+    public void setSymTable(IDictionary<String, IValue> symTable) {
         this.symTable = symTable;
     }
 
     public void setOut(IList<IValue> out) {
         this.out = out;
-    }
-
-    public IDictionary<StringValue, BufferedReader> getFileTable() {
-        return fileTable;
     }
 
     public void setFileTable(
@@ -106,24 +122,21 @@ public class PrgState {
         this.fileTable = fileTable;
     }
 
-    @Override
-    public String toString() {
-        return "ExeStack: " + exeStack +
-                "\nSymTable: " + symTable +
-                "\nOut: " + out +
-                "\nFileTable: " + fileTable;
+    public void setHeap(IHeap heap) {
+        this.heap = heap;
     }
-
 
     public String toLogString() {
         StringBuilder sb = new StringBuilder();
 
         sb.append("ExeStack:\n");
-        exeStack.toList().forEach(
-                stmt -> sb.append(stmt).append('\n')
-        );
+
+        for (IStmt stmt : exeStack.toList()) {
+            sb.append(stmt).append('\n');
+        }
 
         sb.append("SymTable:\n");
+
         symTable.toMap().forEach(
                 (key, value) ->
                         sb.append(key)
@@ -133,16 +146,34 @@ public class PrgState {
         );
 
         sb.append("Out:\n");
-        out.toList().forEach(
-                value -> sb.append(value).append('\n')
-        );
+
+        for (IValue value : out.toList()) {
+            sb.append(value).append('\n');
+        }
 
         sb.append("FileTable:\n");
+
         fileTable.toMap().keySet().forEach(
-                file -> sb.append(file.val()).append('\n')
+                fileName ->
+                        sb.append(fileName.val())
+                                .append('\n')
+        );
+
+        sb.append("Heap:\n");
+
+        new TreeMap<>(heap.getContent()).forEach(
+                (address, value) ->
+                        sb.append(address)
+                                .append(" --> ")
+                                .append(value)
+                                .append('\n')
         );
 
         return sb.toString();
     }
 
+    @Override
+    public String toString() {
+        return toLogString();
+    }
 }

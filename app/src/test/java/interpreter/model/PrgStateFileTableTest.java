@@ -26,7 +26,6 @@ class PrgStateFileTableTest {
         assertTrue(state.getOut().toList().isEmpty());
         assertTrue(state.getFileTable().toMap().isEmpty());
 
-        // Programul inițial trebuie introdus în ExeStack
         assertEquals(1, state.getExeStack().toList().size());
         assertEquals(program, state.getExeStack().toList().get(0));
     }

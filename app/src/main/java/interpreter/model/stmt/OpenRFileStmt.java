@@ -40,8 +40,7 @@ public record OpenRFileStmt(IExp exp) implements IStmt {
 
         } catch (IOException e) {
             throw new StatementException(
-                    "openRFile: cannot open " + fileName
-                            + ": " + e.getMessage()
+                    "openRFile: cannot open " + fileName + ": " + e.getMessage()
             );
         }
 

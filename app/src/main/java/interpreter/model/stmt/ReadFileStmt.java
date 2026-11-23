@@ -24,16 +24,13 @@ public record ReadFileStmt(
 
         if (!symTable.isDefined(varName)) {
             throw new StatementException(
-                    "readFile: variable " + varName
-                            + " was not declared"
+                    "readFile: variable " + varName + " was not declared"
             );
         }
 
-        if (!symTable.lookup(varName).getType()
-                .equals(new IntType())) {
+        if (!symTable.lookup(varName).getType().equals(new IntType())) {
             throw new StatementException(
-                    "readFile: variable " + varName
-                            + " is not an integer"
+                    "readFile: variable " + varName + " is not an integer"
             );
         }
 
@@ -48,8 +45,7 @@ public record ReadFileStmt(
 
         if (!fileTable.isDefined(fileName)) {
             throw new StatementException(
-                    "readFile: file " + fileName
-                            + " is not open"
+                    "readFile: file " + fileName + " is not open"
             );
         }
 
@@ -70,8 +66,7 @@ public record ReadFileStmt(
 
         } catch (IOException | NumberFormatException e) {
             throw new StatementException(
-                    "readFile: cannot read " + fileName
-                            + ": " + e.getMessage()
+                    "readFile: cannot read " + fileName + ": " + e.getMessage()
             );
         }
 

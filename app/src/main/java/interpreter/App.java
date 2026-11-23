@@ -19,7 +19,11 @@ public class App {
         List<IStmt> programs = List.of(
                 Examples.EX1,
                 Examples.EX2,
-                Examples.EX3
+                Examples.EX3,
+                Examples.EX4,
+                Examples.EX5,
+                Examples.EX6,
+                Examples.EX7
         );
 
         TextMenu menu = new TextMenu();
