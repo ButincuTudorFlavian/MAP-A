@@ -33,16 +33,33 @@ public class Controller {
         return currentStatement.execute(state);
     }
 
-
     public void allStep() throws MyException {
 
         PrgState program = repo.getCrtPrg();
+
         repo.logPrgStateExec();
+
         if (displayFlag) {
             display(program);
         }
+
         while (!program.getExeStack().isEmpty()) {
+
             program = oneStep(program);
+
+            repo.logPrgStateExec();
+
+            program.getHeap().setContent(
+                    GarbageCollector.safeGarbageCollector(
+                            GarbageCollector.getAddrFromSymTable(
+                                    program.getSymTable()
+                                            .toMap()
+                                            .values()
+                            ),
+                            program.getHeap().getContent()
+                    )
+            );
+
             repo.logPrgStateExec();
 
             if (displayFlag) {
@@ -50,7 +67,6 @@ public class Controller {
             }
         }
     }
-
 
     private void display(PrgState state) {
 

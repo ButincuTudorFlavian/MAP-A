@@ -64,8 +64,7 @@ class ControllerLogTest {
                 .filter(line -> line.equals("ExeStack:"))
                 .count();
 
-        // Starea inițială + starea după nop.
-        assertEquals(2, stateCount);
+        assertEquals(3, stateCount);
 
         assertTrue(state.getExeStack().isEmpty());
     }
