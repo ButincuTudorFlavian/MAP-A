@@ -202,4 +202,105 @@ public final class Examples {
             new PrintStmt(new VarExp("c"))
     );
 
+
+    public static final IStmt EX8 = sequence(
+            new VarDeclStmt("v", new RefType(new IntType())),
+            new NewStmt("v", new ValueExp(new IntValue(20))),
+            new VarDeclStmt(
+                    "a",
+                    new RefType(new RefType(new IntType()))
+            ),
+            new NewStmt("a", new VarExp("v")),
+            new PrintStmt(new VarExp("v")),
+            new PrintStmt(new VarExp("a"))
+    );
+
+    public static final IStmt EX9 = sequence(
+            new VarDeclStmt("v", new RefType(new IntType())),
+            new NewStmt("v", new ValueExp(new IntValue(20))),
+            new VarDeclStmt(
+                    "a",
+                    new RefType(new RefType(new IntType()))
+            ),
+            new NewStmt("a", new VarExp("v")),
+            new PrintStmt(
+                    new ReadHeapExp(new VarExp("v"))
+            ),
+            new PrintStmt(
+                    new ArithExp(
+                            ArithOp.ADD,
+                            new ReadHeapExp(
+                                    new ReadHeapExp(new VarExp("a"))
+                            ),
+                            new ValueExp(new IntValue(5))
+                    )
+            )
+    );
+
+    public static final IStmt EX10 = sequence(
+            new VarDeclStmt("v", new RefType(new IntType())),
+            new NewStmt("v", new ValueExp(new IntValue(20))),
+            new PrintStmt(
+                    new ReadHeapExp(new VarExp("v"))
+            ),
+            new WriteHeapStmt(
+                    "v",
+                    new ValueExp(new IntValue(30))
+            ),
+            new PrintStmt(
+                    new ArithExp(
+                            ArithOp.ADD,
+                            new ReadHeapExp(new VarExp("v")),
+                            new ValueExp(new IntValue(5))
+                    )
+            )
+    );
+
+    public static final IStmt EX11 = sequence(
+            new VarDeclStmt("v", new RefType(new IntType())),
+            new NewStmt("v", new ValueExp(new IntValue(20))),
+            new VarDeclStmt(
+                    "a",
+                    new RefType(new RefType(new IntType()))
+            ),
+            new NewStmt("a", new VarExp("v")),
+            new NewStmt(
+                    "v",
+                    new ValueExp(new IntValue(30))
+            ),
+            new PrintStmt(
+                    new ReadHeapExp(
+                            new ReadHeapExp(new VarExp("a"))
+                    )
+            )
+    );
+
+    public static final IStmt EX12 = sequence(
+            new VarDeclStmt("v", new IntType()),
+            new AssignStmt(
+                    "v",
+                    new ValueExp(new IntValue(4))
+            ),
+            new WhileStmt(
+                    new RelationalExp(
+                            RelOp.GT,
+                            new VarExp("v"),
+                            new ValueExp(new IntValue(0))
+                    ),
+                    sequence(
+                            new PrintStmt(new VarExp("v")),
+                            new AssignStmt(
+                                    "v",
+                                    new ArithExp(
+                                            ArithOp.SUB,
+                                            new VarExp("v"),
+                                            new ValueExp(new IntValue(1))
+                                    )
+                            )
+                    )
+            ),
+            new PrintStmt(new VarExp("v"))
+    );
+
+
 }
